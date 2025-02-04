@@ -76,6 +76,27 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     }
   }, [selectedCandidate?.id]);
 
+  const fetchTimeSlots = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const response = await axios.get(
+        `http://127.0.0.1:8000/candidates/get-interviewers/${selectedCandidate?.id}/time-slots/`
+      );
+      setTimeSlots(response.data.time_slots || {});
+      setError(""); // Clear previous errors if any
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "An error occurred while fetching time slots."
+      );
+    } finally {
+      // setLoading(false);
+    }
+  },[]);
+  useEffect(()=>{
+    fetchTimeSlots();
+  },[fetchTimeSlots,selectedCandidate?.id])
+
   const fetchCandidates = useCallback(
     async (page = 1, pageSize = 10) => {
       try {
