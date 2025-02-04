@@ -17,11 +17,9 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
-  IconButton,
   Pagination,
 } from "@mui/material";
 import Logout from "../Logout";
-import DownloadIcon from "@mui/icons-material/Download";
 import selectImg from "../assests/select.png";
 import rejectImg from "../assests/reject.png";
 
@@ -45,7 +43,7 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [allTimeSlots, setAllTimeSlots] = useState({}); // New state for storing all time slots
 
-  console.log(timeSlots, "timeSlotsdsdsd", selectedDateTime);
+  console.log(timeSlots, "timeSlotsdsdsd", selectedDateTime,allTimeSlots);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
@@ -95,13 +93,17 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
   // }, [selectedCandidate?.id]);
 
   // New function to fetch time slots for all candidates
-  const fetchAllTimeSlots = async (candidatesList) => {
+  const fetchAllTimeSlots = useCallback(async (candidatesList) => {
     const slotsMap = {};
     for (const candidate of candidatesList) {
       slotsMap[candidate.id] = await fetchTimeSlots(candidate.id);
     }
     setAllTimeSlots(slotsMap);
-  };
+  }, [fetchTimeSlots]); // Add dependencies here
+  
+  useEffect(() => {
+    fetchAllTimeSlots(candidatesList);
+  }, [candidatesList, fetchAllTimeSlots]);  
 
   const fetchCandidates = useCallback(
     async (page = 1, pageSize = 10) => {
