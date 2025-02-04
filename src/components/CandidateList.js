@@ -52,29 +52,29 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     fetchCandidates(newPage);
   };
 
-  useEffect(() => {
-    const fetchTimeSlots = async () => {
-      try {
-        // setLoading(true);
-        const response = await axios.get(
-          `http://127.0.0.1:8000/candidates/get-interviewers/${selectedCandidate?.id}/time-slots/`
-        );
-        setTimeSlots(response.data.time_slots || {});
-        setError(""); // Clear previous errors if any
-      } catch (err) {
-        setError(
-          err.response?.data?.message ||
-            "An error occurred while fetching time slots."
-        );
-      } finally {
-        // setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTimeSlots = async () => {
+  //     try {
+  //       // setLoading(true);
+  //       const response = await axios.get(
+  //         `http://127.0.0.1:8000/candidates/get-interviewers/${selectedCandidate?.id}/time-slots/`
+  //       );
+  //       setTimeSlots(response.data.time_slots || {});
+  //       setError(""); // Clear previous errors if any
+  //     } catch (err) {
+  //       setError(
+  //         err.response?.data?.message ||
+  //           "An error occurred while fetching time slots."
+  //       );
+  //     } finally {
+  //       // setLoading(false);
+  //     }
+  //   };
 
-    if (selectedCandidate?.id) {
-      fetchTimeSlots();
-    }
-  }, [selectedCandidate?.id]);
+  //   if (selectedCandidate?.id) {
+  //     fetchTimeSlots();
+  //   }
+  // }, [selectedCandidate?.id]);
 
   const fetchTimeSlots = useCallback(async () => {
     try {
