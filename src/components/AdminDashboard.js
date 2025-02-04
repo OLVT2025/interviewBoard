@@ -97,10 +97,10 @@ const AdminDashboard = ({ setAuthenticated, activeRole }) => {
   const fetchAdminData = async (page = 1, size = 10) => {
     try {
       const hrTeamResponse = await axios.get(
-        "http://127.0.0.1:8000/candidates/get-hr-teams/"
+        "https://candidate-management-backend-1.onrender.com/candidates/get-hr-teams/"
       );
       const candidateResponse = await axios.get(
-        "http://127.0.0.1:8000/candidates/get-interviewers/",
+        "https://candidate-management-backend-1.onrender.com/candidates/get-interviewers/",
         {
           params: {
             page: page,
@@ -137,7 +137,7 @@ const AdminDashboard = ({ setAuthenticated, activeRole }) => {
   const addTeam = async () => {
     try {
       await axios.post(
-        "http://127.0.0.1:8000/candidates/add-hr/",
+        "https://candidate-management-backend-1.onrender.com/candidates/add-hr/",
         newTeam,
         {
           headers: {
@@ -162,7 +162,7 @@ const AdminDashboard = ({ setAuthenticated, activeRole }) => {
       formData.append("email", newCandidate.email);
 
       await axios.post(
-        "http://127.0.0.1:8000/candidates/add-interviewer/",
+        "https://candidate-management-backend-1.onrender.com/candidates/add-interviewer/",
         // "http://127.0.0.1:8000/candidates/admin/candidates/add",
         formData,
         {

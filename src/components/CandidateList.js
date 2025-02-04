@@ -54,7 +54,7 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     try {
       // setLoading(true);
       const response = await axios.get(
-        `http://127.0.0.1:8000/candidates/get-interviewers/${candidateId}/time-slots/`
+        `https://candidate-management-backend-1.onrender.com/candidates/get-interviewers/${candidateId}/time-slots/`
       );
       setTimeSlots(response.data.time_slots || {});
       setError(""); // Clear previous errors if any
@@ -80,7 +80,7 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     async (page = 1, pageSize = 10) => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/candidates/get-interviewers/",
+          "https://candidate-management-backend-1.onrender.com/candidates/get-interviewers/",
           {
             params: { activeTeamId, page, page_size: pageSize },
             withCredentials: true,
@@ -184,7 +184,7 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/candidates/update_status/${selectedCandidate.id}/Rejected/`,
+        `https://candidate-management-backend-1.onrender.com/candidates/update_status/${selectedCandidate.id}/Rejected/`,
         { comment: rejectionComment, activeTeamId }, // Send the rejection comment to backend
         {
           headers: { Authorization: `Bearer ${token}` },

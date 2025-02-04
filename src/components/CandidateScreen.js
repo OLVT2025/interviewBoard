@@ -374,7 +374,7 @@ const CandidateScreen = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/candidates/time-slots/interviewer-bulk-schedule",
+        "https://candidate-management-backend-1.onrender.com/candidates/time-slots/interviewer-bulk-schedule",
         result,
         { headers: { "Content-Type": "application/json" } }
       );

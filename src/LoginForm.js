@@ -22,7 +22,7 @@ const LoginForm = ({ setAuthenticated ,setActiveTeamId,authenticated,onLoginSucc
     setLoading(true); // Start loading
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/candidates/hr-login/",//  http://localhost:8000/candidates/login/
+        "https://candidate-management-backend-1.onrender.com/candidates/hr-login/",//  http://localhost:8000/candidates/login/
         {
           username,
           password,
