@@ -101,9 +101,9 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     setAllTimeSlots(slotsMap);
   }, [fetchTimeSlots]); // Add dependencies here
   
-  useEffect(() => {
-    fetchAllTimeSlots(candidatesList);
-  }, [candidatesList, fetchAllTimeSlots]);  
+  // useEffect(() => {
+  //   fetchAllTimeSlots(candidatesList);
+  // }, [candidatesList, fetchAllTimeSlots]);  
 
   const fetchCandidates = useCallback(
     async (page = 1, pageSize = 10) => {
