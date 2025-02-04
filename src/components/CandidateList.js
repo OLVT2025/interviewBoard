@@ -68,13 +68,13 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
     }
   };
 
-  const fetchAllTimeSlots = async (candidatesList) => {
+  const fetchAllTimeSlots = useCallback(async (candidatesList) => {
     const slotsMap = {};
     for (const candidate of candidatesList) {
       slotsMap[candidate.id] = await fetchTimeSlots(candidate.id);
     }
     setAllTimeSlots(slotsMap);
-  };
+  },[]);
 
   const fetchCandidates = useCallback(
     async (page = 1, pageSize = 10) => {
