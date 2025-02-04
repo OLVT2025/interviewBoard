@@ -17,9 +17,11 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  IconButton,
   Pagination,
 } from "@mui/material";
 import Logout from "../Logout";
+import DownloadIcon from "@mui/icons-material/Download";
 import selectImg from "../assests/select.png";
 import rejectImg from "../assests/reject.png";
 
@@ -43,67 +45,54 @@ const CandidateList = ({ activeTeamId, setAuthenticated, activeTeamName }) => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [allTimeSlots, setAllTimeSlots] = useState({}); // New state for storing all time slots
 
-  console.log(timeSlots, "timeSlotsdsdsd", selectedDateTime,allTimeSlots);
+  console.log(timeSlots, "timeSlotsdsdsd", selectedDateTime);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
     fetchCandidates(newPage);
   };
 
-  const fetchTimeSlots = async (candidateId) => {
-    try {
-      // setLoading(true);
-      const response = await axios.get(
-        `http://127.0.0.1:8000/candidates/get-interviewers/${candidateId}/time-slots/`
-      );
-      setTimeSlots(response.data.time_slots || {});
-      setError(""); // Clear previous errors if any
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          "An error occurred while fetching time slots."
-      );
-    } finally {
-      // setLoading(false);
-    }
-  };
-
-  // useEffect(() => {
-  //   const fetchTimeSlots = async () => {
-  //     try {
-  //       // setLoading(true);
-  //       const response = await axios.get(
-  //         `http://127.0.0.1:8000/candidates/get-interviewers/${selectedCandidate?.id}/time-slots/`
-  //       );
-  //       setTimeSlots(response.data.time_slots || {});
-  //       setError(""); // Clear previous errors if any
-  //     } catch (err) {
-  //       setError(
-  //         err.response?.data?.message ||
-  //           "An error occurred while fetching time slots."
-  //       );
-  //     } finally {
-  //       // setLoading(false);
-  //     }
-  //   };
-
-  //   if (selectedCandidate?.id) {
-  //     fetchTimeSlots();
+  // const fetchTimeSlots = async (candidateId) => {
+  //   try {
+  //     // setLoading(true);
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8000/candidates/get-interviewers/${candidateId}/time-slots/`
+  //     );
+  //     setTimeSlots(response.data.time_slots || {});
+  //     setError(""); // Clear previous errors if any
+  //   } catch (err) {
+  //     setError(
+  //       err.response?.data?.message ||
+  //         "An error occurred while fetching time slots."
+  //     );
+  //   } finally {
+  //     // setLoading(false);
   //   }
-  // }, [selectedCandidate?.id]);
+  // };
 
-  // New function to fetch time slots for all candidates
-  const fetchAllTimeSlots = useCallback(async (candidatesList) => {
-    const slotsMap = {};
-    for (const candidate of candidatesList) {
-      slotsMap[candidate.id] = await fetchTimeSlots(candidate.id);
+  useEffect(() => {
+    const fetchTimeSlots = async () => {
+      try {
+        // setLoading(true);
+        const response = await axios.get(
+          `http://127.0.0.1:8000/candidates/get-interviewers/${selectedCandidate?.id}/time-slots/`
+        );
+        setTimeSlots(response.data.time_slots || {});
+        setError(""); // Clear previous errors if any
+      } catch (err) {
+        setError(
+          err.response?.data?.message ||
+            "An error occurred while fetching time slots."
+        );
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    if (selectedCandidate?.id) {
+      fetchTimeSlots();
     }
-    setAllTimeSlots(slotsMap);
-  }, [fetchTimeSlots]); // Add dependencies here
-  
-  // useEffect(() => {
-  //   fetchAllTimeSlots(candidatesList);
-  // }, [candidatesList, fetchAllTimeSlots]);  
+  }, [selectedCandidate?.id]);
 
   const fetchCandidates = useCallback(
     async (page = 1, pageSize = 10) => {
